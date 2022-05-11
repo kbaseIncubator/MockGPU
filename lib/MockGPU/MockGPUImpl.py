@@ -67,7 +67,7 @@ class MockGPU:
         # return variables are: output
         #BEGIN run_MockGPU
         if params["parameter_1"] == "1":
-            self._submit_gpu(ctx["token"]))
+            self._submit_gpu(ctx["token"])
         report = KBaseReport(self.callback_url)
         report_info = report.create({'report': {'objects_created':[],
                                                 'text_message': params['parameter_1']},
