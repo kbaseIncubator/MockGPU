@@ -30,12 +30,12 @@ class MockGPU:
     def _submit_gpu(self, token):
         print("Will Submit SLURM GPU")
         with open('./work/tmp/slurm.sl', 'w') as f:
-            f.write('#!/bin/bash')
-            f.write('#SBATCH -N 1 -C gpu -q regular -t 30:00 -A kbase_g')
-            f.write('#SBATCH --image=dockerhub-ci.kbase.us/kbase:mockgpu.9ae47df639eb161df400d3146f9f4b8af308fa5d')
-            f.write('echo hello')
-            f.write('nvidia-smi')
-            f.write('shifter nvidia-smi')
+            f.write('#!/bin/bash\n')
+            f.write('#SBATCH -N 1 -C gpu -q regular -t 30:00 -A kbase_g\n')
+            f.write('#SBATCH --image=dockerhub-ci.kbase.us/kbase:mockgpu.9ae47df639eb161df400d3146f9f4b8af308fa5d\n')
+            f.write('echo hello\n')
+            f.write('nvidia-smi\n')
+            f.write('shifter nvidia-smi\n')
 
         p = {'submit_script': 'slurm.sl'}
         print("Submitting SLURM GPU")
