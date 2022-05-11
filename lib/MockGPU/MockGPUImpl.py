@@ -27,6 +27,21 @@ class MockGPU:
     GIT_COMMIT_HASH = ""
 
     #BEGIN_CLASS_HEADER
+    def _submit_gpu(self, token):
+        print("Submitting SLURM GPU")
+        sr = special(self.callback_url, token=token)
+        with open('./work/tmp/slurm.sl', 'w') as f:
+            f.write('#!/bin/bash')
+            f.write('#SBATCH -N 1 -C gpu -q regular -t 30:00 -A kbase_g')
+            f.write('#SBATCH --image=dockerhub-ci.kbase.us/kbase:mockgpu.9ae47df639eb161df400d3146f9f4b8af308fa5d')
+            f.write('echo hello')
+            f.write('nvidia-smi')
+            f.write('shifter nvidia-smi')
+
+        p = {'submit_script': 'slurm.sl'}
+        res = sr.slurm(p)
+        print('slurm'+str(res))
+
     #END_CLASS_HEADER
 
     # config contains contents of config file in a hash or None if it couldn't
@@ -51,6 +66,8 @@ class MockGPU:
         # ctx is the context object
         # return variables are: output
         #BEGIN run_MockGPU
+        if params["parameter_1"] == "1":
+            self._submit_gpu(ctx["token"]))
         report = KBaseReport(self.callback_url)
         report_info = report.create({'report': {'objects_created':[],
                                                 'text_message': params['parameter_1']},
