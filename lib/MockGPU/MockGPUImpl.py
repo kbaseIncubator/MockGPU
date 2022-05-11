@@ -28,7 +28,7 @@ class MockGPU:
 
     #BEGIN_CLASS_HEADER
     def _submit_gpu(self, token):
-        print("Submitting SLURM GPU")
+        print("Will Submit SLURM GPU")
         sr = special(self.callback_url, token=token)
         with open('./work/tmp/slurm.sl', 'w') as f:
             f.write('#!/bin/bash')
@@ -39,6 +39,7 @@ class MockGPU:
             f.write('shifter nvidia-smi')
 
         p = {'submit_script': 'slurm.sl'}
+        print("Submitting SLURM GPU")
         res = sr.slurm(p)
         print('slurm'+str(res))
 
