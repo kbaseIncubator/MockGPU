@@ -33,7 +33,9 @@ class MockGPU:
         with open('./work/tmp/slurm.sl', 'w') as f:
             f.write('#!/bin/bash\n')
             f.write('#SBATCH -N 1 -C gpu -q regular -t 30:00 -A kbase_g\n')
-            f.write('#SBATCH --image=dockerhub-ci.kbase.us/kbase:mockgpu.9ae47df639eb161df400d3146f9f4b8af308fa5d\n')
+            # This part is a bit of hack.  This is so you can run the HPC job
+            # using the same container.
+            f.write('#SBATCH --image=%s\n' % (os.environ["SHIFTER_IMAGEREQUEST"]))
             f.write('echo hello\n')
             f.write('nvidia-smi\n')
             f.write('shifter nvidia-smi\n')
