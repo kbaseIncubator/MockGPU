@@ -29,7 +29,6 @@ class MockGPU:
     #BEGIN_CLASS_HEADER
     def _submit_gpu(self, token):
         print("Will Submit SLURM GPU")
-        sr = special(self.callback_url, token=token)
         with open('./work/tmp/slurm.sl', 'w') as f:
             f.write('#!/bin/bash')
             f.write('#SBATCH -N 1 -C gpu -q regular -t 30:00 -A kbase_g')
@@ -40,6 +39,7 @@ class MockGPU:
 
         p = {'submit_script': 'slurm.sl'}
         print("Submitting SLURM GPU")
+        sr = special(self.callback_url, token=token)
         res = sr.slurm(p)
         print('slurm'+str(res))
 
