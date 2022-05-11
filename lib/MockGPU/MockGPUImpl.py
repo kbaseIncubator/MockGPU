@@ -4,6 +4,7 @@ import logging
 import os
 
 from installed_clients.KBaseReportClient import KBaseReport
+from installed_clients.specialClient import special as special
 #END_HEADER
 
 
