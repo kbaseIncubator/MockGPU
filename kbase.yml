@@ -2,7 +2,7 @@ module-name:
     MockGPU
 
 module-description:
-    A KBase module
+    A mock module to test GPU support
 
 service-language:
     python
