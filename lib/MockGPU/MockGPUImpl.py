@@ -36,8 +36,7 @@ class MockGPU:
             # This part is a bit of hack.  This is so you can run the HPC job
             # using the same container.
             f.write('#SBATCH --image=%s\n' % (os.environ["SHIFTER_IMAGEREQUEST"]))
-            f.write('echo hello\n')
-            f.write('nvidia-smi\n')
+            f.write('echo Running nvidia-smi in container\n')
             f.write('shifter nvidia-smi\n')
 
         p = {'submit_script': 'slurm.sl'}
